@@ -4,6 +4,7 @@ const flightPlanCoordinates = [
     {lat: 40.0012162, lng: -83.011562},
 ];
 
+
 function initMap() {
     const ohio_state = {lat: 40.0012162, lng: -83.011562};
 
@@ -33,8 +34,8 @@ function initMap() {
 
         // Generating Coordinates
         var coordinate = {
-            lat: flightPlanCoordinates[i].lat - (randomMultiplier) * (randomInt * 0.0001 * i ),
-            lng: flightPlanCoordinates[i].lng - (randomMultiplier) * (randomInt2 * 0.0001 * i ),
+            lat: flightPlanCoordinates[i].lat - (randomMultiplier) * (randomInt * 0.0001 * i),
+            lng: flightPlanCoordinates[i].lng - (randomMultiplier) * (randomInt2 * 0.0001 * i),
         }
         flightPlanCoordinates.push(coordinate);
         console.log(coordinate);
@@ -58,7 +59,6 @@ function initMap() {
         }
         flightPath.setMap(map);
 
-
     }, 2000);
 }
 
@@ -74,5 +74,6 @@ function moveMarker(map, marker, lat, long) {
     }, 1500);
 
 };
+
 
 initMap()
