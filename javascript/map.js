@@ -1,5 +1,4 @@
-var droneIcon = 'drone.png';
-
+let droneIcon = 'data/drone.png';
 const flightPlanCoordinates = [
     {lat: 40.0012162, lng: -83.011562},
 ];
