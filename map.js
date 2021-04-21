@@ -1,49 +1,45 @@
+var droneIcon = 'drone.png';
+
 const flightPlanCoordinates = [
     {lat: 40.0012162, lng: -83.011562},
-    /*{lat: 40.0003344, lng: -83.011562},
-    {lat: 40.000052, lng: -83.011562},
-    {lat: 39.99629, lng: -83.0198173},
-    {lat: 39.9935584, lng: -83.0223095},
-    {lat: 39.9899025, lng: -83.0221226},*/
 ];
 
 function initMap() {
-    // The location of Uluru
     const ohio_state = {lat: 40.0012162, lng: -83.011562};
 
+    // Google Maps Settings
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 17,
         center: ohio_state,
+        mapTypeId: 'roadmap'
+
     });
 
     const marker = new google.maps.Marker({
         position: ohio_state,
+        icon: droneIcon,
         map: map,
     });
+    marker.setMap(map);
 
-
-
-
-
-    //console.log(coordinate);
-
-    const flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-    });
 
     var i = 0;
 
-    var intervalId = window.setInterval(function () {
-        var coordinate = {lat: flightPlanCoordinates[0].lat - (i+1)*(0.0005),
-            lng: flightPlanCoordinates[0].lng - (i+1)*(0.0004)}
-        flightPlanCoordinates.push(coordinate);
+    // Loop
+    window.setInterval(function () {
+        var randomMultiplier = Math.random()
+        var randomInt = Math.floor(Math.random() * 10) + 1;
+        var randomInt2 = Math.floor(Math.random() * 10) + 1;
 
+        // Generating Coordinates
+        var coordinate = {
+            lat: flightPlanCoordinates[i].lat - (randomMultiplier) * (randomInt * 0.0001 * i ),
+            lng: flightPlanCoordinates[i].lng - (randomMultiplier) * (randomInt2 * 0.0001 * i ),
+        }
+        flightPlanCoordinates.push(coordinate);
         console.log(coordinate);
 
+        // Generating Path
         const flightPath = new google.maps.Polyline({
             path: flightPlanCoordinates,
             geodesic: true,
@@ -52,23 +48,22 @@ function initMap() {
             strokeWeight: 2,
         });
 
+        // Move marker
+        if (i < flightPlanCoordinates.length) {
+            let latCoordinate = flightPlanCoordinates[i].lat;
+            let lngCoordinate = flightPlanCoordinates[i].lng;
+            moveMarker(map, marker, latCoordinate, lngCoordinate);
+
+            i += 1;
+        }
         flightPath.setMap(map);
 
 
-
-        if (i < flightPlanCoordinates.length) {
-            latCoordinate = flightPlanCoordinates[i].lat;
-            lngCoordinate = flightPlanCoordinates[i].lng;
-            i+=1;
-        }
-
-        marker.setMap(map);
-        moveMarker(map, marker,latCoordinate,lngCoordinate);
     }, 2000);
 }
 
 
-function moveMarker(map, marker,lat,long) {
+function moveMarker(map, marker, lat, long) {
 
     //delayed so you can see it move
     setTimeout(function () {
