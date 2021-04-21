@@ -10,6 +10,8 @@
 - Open ```csv_index.html``` in your browser
 - Add CSV file from your computer
 - Click "ReadCSV" button to run the code
+- Change details related with Google Maps API in ```csv_index.html```
+
 
 ## Notes
 - Your CSV file should include two columns with ```latitude``` and ```longitude```title.
